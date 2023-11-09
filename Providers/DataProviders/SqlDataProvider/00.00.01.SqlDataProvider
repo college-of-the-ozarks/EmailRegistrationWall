@@ -1,0 +1,24 @@
+﻿IF NOT EXISTS (SELECT * FROM sys.tables WHERE name='EmailRegistrationWall_Email')
+    CREATE TABLE {databaseOwner}{objectQualifier}EmailRegistrationWall_Email
+        (
+        Id int NOT NULL IDENTITY (1, 1),
+        EmailAddress nvarchar(MAX) NOT NULL,
+        ModuleId int NOT NULL,
+        Event nvarchar(MAX) NOT NULL,
+		CONSTRAINT PK_EmailRegistrationWall_Email PRIMARY KEY CLUSTERED (Id)
+        WITH ( STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)
+        )  ON [PRIMARY]
+         TEXTIMAGE_ON [PRIMARY]
+GO
+
+IF NOT EXISTS (SELECT * FROM sys.tables WHERE name='EmailRegistrationWall_SignIns')
+    CREATE TABLE {databaseOwner}{objectQualifier}EmailRegistrationWall_SignIns
+        (
+        Id int NOT NULL IDENTITY (1, 1),
+        UserID int NOT NULL,
+        ModuleId int NOT NULL,
+        Time datetime NOT NULL DEFAULT(GETDATE()),
+		CONSTRAINT PK_EmailRegistrationWall_SignIns PRIMARY KEY CLUSTERED (Id)
+        WITH ( STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON)
+        )  ON [PRIMARY]
+GO

@@ -1,0 +1,17 @@
+﻿@inherits DotNetNuke.Web.Mvc.Framework.DnnWebViewPage<Cofo.Modules.EmailRegistrationWall.Models.Settings>
+
+@using DotNetNuke.Web.Mvc.Helpers
+@using Cofo.Modules.ActiveDirectory.ADLib;
+
+<h2 id="dnnSitePanel-BasicSettings" class="dnnFormSectionHead"><a href="" class="dnnSectionExpanded">Forum Settings</a></h2>
+<fieldset>
+    @Html.Partial("/DesktopModules/MVC/ActiveDirectory/Views/Partials/_SettingsField.cshtml", Model.ActiveDirectoryGroups)
+    @Html.HiddenFor(m => m.ActiveDirectoryGroups)
+    <div class="dnnFormItem">
+        <div class="dnnLabel" style="position: relative;">
+            @Html.LabelFor(m => Model.EventName, new { @class = "col-md-2 control-label" })
+        </div>
+        @Html.TextBoxFor(m => Model.EventName)
+    </div>
+</fieldset>
+

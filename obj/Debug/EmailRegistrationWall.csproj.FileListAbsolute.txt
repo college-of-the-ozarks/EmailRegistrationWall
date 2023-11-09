@@ -1,0 +1,10 @@
+C:\DNN 9\bin\EmailRegistrationWall.dll.config
+C:\DNN 9\bin\EmailRegistrationWall.dll
+C:\DNN 9\bin\EmailRegistrationWall.pdb
+C:\DNN 9\DesktopModules\MVC\EmailRegistrationWall\obj\Debug\EmailRegistrationWall.csproj.AssemblyReference.cache
+C:\DNN 9\DesktopModules\MVC\EmailRegistrationWall\obj\Debug\Cofo.Modules.EmailRegistrationWall.App_LocalResources.Settings.resources
+C:\DNN 9\DesktopModules\MVC\EmailRegistrationWall\obj\Debug\EmailRegistrationWall.csproj.GenerateResource.cache
+C:\DNN 9\DesktopModules\MVC\EmailRegistrationWall\obj\Debug\EmailRegistrationWall.csproj.CoreCompileInputs.cache
+C:\DNN 9\DesktopModules\MVC\EmailRegistrationWall\obj\Debug\EmailRegistrationWall.csproj.CopyComplete
+C:\DNN 9\DesktopModules\MVC\EmailRegistrationWall\obj\Debug\EmailRegistrationWall.dll
+C:\DNN 9\DesktopModules\MVC\EmailRegistrationWall\obj\Debug\EmailRegistrationWall.pdb

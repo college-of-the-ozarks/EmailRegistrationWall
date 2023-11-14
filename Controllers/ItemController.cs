@@ -28,7 +28,7 @@ namespace Cofo.Modules.EmailRegistrationWall.Controllers
     public class ItemController : DnnController
     {
 
-        public ActionResult Submit(string email)
+        public ActionResult Submit(string email, string lastName, string firstName, string streetAddress, string city, string state, string zip)
         {
             // if email is not in the database, add it
             var items = ItemManager.Instance.GetItems(ModuleContext.ModuleId);
@@ -39,7 +39,13 @@ namespace Cofo.Modules.EmailRegistrationWall.Controllers
                 {
                     EmailAddress = email,
                     Event = ModuleContext.Configuration.ModuleSettings.GetValueOrDefault("EventName", ""),
-                    ModuleId = ModuleContext.ModuleId
+                    ModuleId = ModuleContext.ModuleId,
+                    LastName = lastName,
+                    FirstName = firstName,
+                    StreetAddress = streetAddress,
+                    City = city,
+                    State = state,
+                    Zip = zip
                 };
                 ItemManager.Instance.CreateItem(item);
             }

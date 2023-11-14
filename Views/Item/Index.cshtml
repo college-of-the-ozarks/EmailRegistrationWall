@@ -7,51 +7,58 @@
 @using System.Linq
 @using DotNetNuke.Collections
 
+<script src="~/DesktopModules/MVC/EmailRegistrationWall/Resources/List_Country_State-master/countries.js"></script>
+
+
 @{
     bool userHasAuthorization = Request.IsAuthenticated && ADAccess.IsAuthorized(Dnn.User, (string)Dnn.ModuleContext.Settings.GetValueOrDefault("ActiveDirectoryGroups", ""));
 }
 <style>
-    #loadingDiv {
-        margin-bottom: 1200px;
-        position: relative;
-        height: 100%;
-        width: 100%;
-        display: block;
-    }
-
-    #Items-@Dnn.ModuleContext.ModuleId {
-        position: relative; /* Make sure it's not positioned absolutely or fixed */
-        z-index: 1; /* Ensure the other content appears above the loadingDiv */
+    .DnnModule {
+        display: none !important;
     }
 </style>
 
-<div id="loadingDiv"></div>
 <div id="Items-@Dnn.ModuleContext.ModuleId">
     <div class="container">
         <div class="m-4">
-
-            <div class="form-group">
-                <label for="EmailInput">Email Address</label>
-                <input name="EmailInput" id="EmailInput" class="form-control" aria-describedby="emailHelp" placeholder="Enter email" type="email" required="">
-            </div>
-            <p><font color="red"><span></span></font></p>
-            <a type="submit" name="SubmitEmail" value="Connect" id="SubmitEmail" class="btn btn-primary" href="">Connect</a>
-
+            <h2>Registration</h2>
+            <form>
+                <div class="form-group">
+                    <label for="NameInput">Name:</label>
+                    <input name="FirstNameInput" id="FirstNameInput" class="form-control" placeholder="Enter first name" type="text" />
+                    <input name="LastNameInput" id="LastNameInput" class="form-control mt-2" placeholder="Enter last name" type="text" />
+                </div>
+                <div class="form-group">
+                    <label for="EmailInput">Email Address:</label>
+                    <input name="EmailInput" id="EmailInput" class="form-control" placeholder="Enter email" type="email">
+                </div>
+                <div class="form-group">
+                    <label for="AddressInput">Address (Optional):</label>
+                    <input name="AddressInput" id="AddressInput" class="form-control" placeholder="Enter Street address" type="text" />
+                    <input name="CityInput" id="CityInput" class="form-control mt-2" placeholder="Enter City" type="text" />
+                    <select name="StateInput" id="StateInput" class="form-control mt-2" placeholder="Enter State" type="text"></select>
+                    <input name="ZipInput" id="ZipInput" class="form-control mt-2" placeholder="Enter Zip Code" type="text" />
+                </div>
+                <button type="submit" name="SubmitEmail" id="SubmitEmail" class="btn btn-primary">Connect</button>
+            </form>
         </div>
     </div>
 </div>
 
 <script>
+
     $(document).ready(async function () {
-        if (!@userHasAuthorization.ToString().ToLower()) {
-            if ($('.DnnModule').length) {
-                // add visibility: hidden;
-                $('.DnnModule ').attr('style', 'visibility: hidden;');
-                // Remove visibility: hidden;
-                $('.DnnModule-EmailRegistrationWall').attr('style', 'visibility: visible;');
-            }
+        $('.DnnModule-EmailRegistrationWall').attr('style', 'display: block !important');
+        if (@userHasAuthorization.ToString().ToLower()) {
+            // Show the other Modules
+            $('.DnnModule').attr('style', 'display: block !important');
         }
-        $('#loadingDiv').hide()
+
+
+        populateUnitedStates("StateInput");
+
+
     });
 
     function actionRequest(link) {
@@ -76,21 +83,52 @@
     $('#SubmitEmail').on('click', function (e) {
 
         e.preventDefault(); // prevent the default form submission
-
+        // if the email or name is empty, don't submit
+        if ($('#EmailInput').val() == "" || $('#FirstNameInput').val() == "" || $('#LastNameInput').val() == "") {
+            // highlight the empty fields
+            if ($('#EmailInput').val() == "") {
+                $('#EmailInput').addClass('is-invalid');
+            }
+            if ($('#FirstNameInput').val() == "") {
+                $('#FirstNameInput').addClass('is-invalid');
+            }
+            if ($('#LastNameInput').val() == "") {
+                $('#LastNameInput').addClass('is-invalid');
+            }
+            // add label below the button
+            $('#SubmitEmail').after('<label id="SubmitEmailError" class="text-danger"> Please fill out all required fields</label>');
+            return;
+        }
         (async () => {
             var emailValue = $('#EmailInput').val(); // Get the value of the email input
-            var link = $('@Html.ActionLink(".", "Submit", "Item", "", "", "", new { Email = "__REPLACE__" }, new { })').attr('href');
-            link = link.replace("__REPLACE__", emailValue); // Replace placeholder with the actual email value
+            var link = $('@Html.ActionLink(".", "Submit", "Item", "", "", "", new { email = "__REPLACE__", firstName = "__REPLACE2__", lastName = "__REPLACE3__", streetAddress = "__REPLACE4__", city = "__REPLACE5__", state = "__REPLACE6__", zip = "__REPLACE7__" }, new { })').attr('href');
+            // an input is empty, set it to null
+            if ($('#AddressInput').val() == "") {
+                $('#AddressInput').val("undefined");
+            }
+            if ($('#CityInput').val() == "") {
+                $('#CityInput').val("undefined");
+            }
+            if ($('#StateInput').val() == "") {
+                $('#StateInput').val("undefined");
+            }
+            if ($('#ZipInput').val() == "") {
+                $('#ZipInput').val("undefined");
+            }
+            link = link.replace("__REPLACE__", emailValue).replace("__REPLACE2__", $('#FirstNameInput').val()).replace("__REPLACE3__", $('#LastNameInput').val()).replace("__REPLACE4__", $('#AddressInput').val()).replace("__REPLACE5__", $('#CityInput').val()).replace("__REPLACE6__", $('#StateInput').val()).replace("__REPLACE7__", $('#ZipInput').val());
+
             let result = await actionRequest(link)
 
             if (result) {
-                $('#loadingDiv').show()
-                if ($('.DnnModule').length) {
-                    $('.DnnModule ').attr('style', 'visibility: visible;');
-                    $('.DnnModule-EmailRegistrationWall ').hide();
-                }
-                $('#EmailInput').val('');
-                $('#loadingDiv').hide()
+                // delete DnnModule-EmailRegistrationWall
+                $('.DnnModule-EmailRegistrationWall').remove();
+                $('.DnnModule').attr('style', 'display: block !important');
+                let carousel = $('.hwu');
+                let height = carousel.width() / @Html.Raw(Dnn.ModuleContext.Settings.GetValueOrDefault("AspectRatioX", 16)) * @Html.Raw(Dnn.ModuleContext.Settings.GetValueOrDefault("AspectRatioY", 9));
+
+                // Add 116px to height so that mobile view is 16:9 and not squished
+                let addon = window.innerWidth < 1024 ? 116 : 0;
+                carousel.css('height', height + addon);
             }
         })()
     });

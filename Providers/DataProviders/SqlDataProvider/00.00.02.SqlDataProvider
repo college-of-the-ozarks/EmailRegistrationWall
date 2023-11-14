@@ -1,0 +1,10 @@
+﻿ALTER TABLE {databaseOwner}{objectQualifier}EmailRegistrationWall_Email
+
+ADD FirstName nvarchar(MAX) NULL,
+LastName nvarchar(MAX) NULL,
+StreetAddress nvarchar(MAX) NULL,
+City nvarchar(MAX) NULL,
+State nvarchar(MAX) NULL,
+Zip nvarchar(MAX) NULL
+
+GO

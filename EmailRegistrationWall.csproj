@@ -141,7 +141,8 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Resources\Images\loader.gif" />
+    <Content Include="Resources\List_Country_State-master\countries.html" />
+    <Content Include="Resources\List_Country_State-master\countries.js" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
   </ItemGroup>
@@ -152,6 +153,8 @@
     </Content>
     <Content Include="Views\Item\Index.cshtml" />
     <Content Include="Views\Settings\Settings.cshtml" />
+    <Content Include="Resources\List_Country_State-master\README.md" />
+    <Content Include="Providers\DataProviders\SqlDataProvider\00.00.02.SqlDataProvider" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

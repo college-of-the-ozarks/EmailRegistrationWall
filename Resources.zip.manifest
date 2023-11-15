@@ -13,6 +13,14 @@
       <name>Index.cshtml</name>
     </file>
     <file>
+      <path>Resources/List_Country_State-master/</path>
+      <name>countries.html</name>
+    </file>
+    <file>
+      <path>Resources/List_Country_State-master/</path>
+      <name>countries.js</name>
+    </file>
+    <file>
       <path>Views/</path>
       <name>_ViewStart.cshtml</name>
     </file>

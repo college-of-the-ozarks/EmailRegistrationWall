@@ -1,6 +1,6 @@
 <dotnetnuke type="Package" version="5.0">
   <packages>
-    <package name="EmailRegistrationWall" type="Module" version="00.00.01">
+    <package name="EmailRegistrationWall" type="Module" version="00.00.02">
       <friendlyName>EmailRegistrationWall</friendlyName>
       <description>EmailRegistrationWall</description>
       <iconFile>~/Icons/Sigma/Software_32X32_Standard.png</iconFile>
@@ -24,6 +24,11 @@
               <name>00.00.01.SqlDataProvider</name>
               <version>00.00.01</version>
             </script>
+			  <script type="Install">
+				  <path>Providers\DataProviders\SqlDataProvider</path>
+				  <name>00.00.02.SqlDataProvider</name>
+				  <version>00.00.02</version>
+			  </script>
             <script type="UnInstall">
               <path>Providers\DataProviders\SqlDataProvider</path>
               <name>Uninstall.SqlDataProvider</name>
